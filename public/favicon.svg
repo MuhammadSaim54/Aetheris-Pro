@@ -1,0 +1,29 @@
+<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Deep Void Rounded Card -->
+  <rect width="36" height="36" rx="10" fill="url(#paint0_linear)" />
+  <rect x="0.5" y="0.5" width="35" height="35" rx="9.5" stroke="#A855F7" stroke-opacity="0.35" />
+
+  {/* Interlocking Knowledge / Memory Nodes */}
+  <path d="M18 8L27 13.5V22.5L18 28L9 22.5V13.5L18 8Z" stroke="url(#paint1_linear)" stroke-width="1.75" stroke-linejoin="round" fill="#170b24" fill-opacity="0.6" />
+  
+  {/* Inner Core Glowing Nodes */}
+  <circle cx="18" cy="18" r="3.5" fill="url(#paint2_radial)" />
+  <circle cx="18" cy="8" r="1.5" fill="#C084FC" />
+  <circle cx="27" cy="22.5" r="1.5" fill="#FB7185" />
+  <circle cx="9" cy="22.5" r="1.5" fill="#A855F7" />
+
+  <defs>
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stopColor="#12071F" />
+      <stop offset="1" stopColor="#0B0414" />
+    </linearGradient>
+    <linearGradient id="paint1_linear" x1="9" y1="8" x2="27" y2="28" gradientUnits="userSpaceOnUse">
+      <stop stopColor="#C084FC" />
+      <stop offset="1" stopColor="#FB7185" />
+    </linearGradient>
+    <radialGradient id="paint2_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(18 18) rotate(90) scale(3.5)">
+      <stop stopColor="#FB7185" />
+      <stop offset="1" stopColor="#7E22CE" />
+    </radialGradient>
+  </defs>
+</svg>

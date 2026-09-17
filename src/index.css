@@ -1,0 +1,232 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* ==============================================================
+   PRECISION SYSTEM SCROLLBAR ENGINE (NO WHITE BARS)
+   ============================================================== */
+
+:root {
+  color-scheme: light;
+}
+
+[data-theme="dark"],
+html.dark {
+  color-scheme: dark !important;
+}
+
+/* Chrome, Edge, Safari Webkit Engine */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Remove default white arrow buttons completely */
+::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Completely transparent background track */
+::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+/* Dark Mode: Sleek translucent purple thumb */
+[data-theme="dark"] ::-webkit-scrollbar-thumb,
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.25) !important;
+  border-radius: 9999px !important;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover,
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.5) !important;
+}
+
+/* Light Mode: Subtle slate thumb */
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.25) !important;
+  border-radius: 9999px !important;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.45) !important;
+}
+
+/* Firefox Engine */
+[data-theme="dark"],
+html.dark {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(168, 85, 247, 0.3) transparent !important;
+}
+
+[data-theme="light"] {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.3) transparent !important;
+}
+
+/* Custom Selection Glow */
+[data-theme="dark"] ::selection {
+  background-color: rgba(168, 85, 247, 0.45);
+  color: #ffffff;
+}
+[data-theme="light"] ::selection {
+  background-color: rgba(168, 85, 247, 0.22);
+  color: #0f172a;
+}
+
+/* Editor list styling */
+[contenteditable] ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+[contenteditable] ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+[contenteditable] li {
+  display: list-item !important;
+  margin-bottom: 0.25rem !important;
+}
+
+/* Interactive Todo / Checklists */
+.todo-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 6px 0;
+  user-select: text;
+}
+.todo-checkbox {
+  appearance: none;
+  width: 17px;
+  height: 17px;
+  border-radius: 5px;
+  border: 1.5px solid #a855f7;
+  cursor: pointer;
+  margin-top: 3px;
+  flex-shrink: 0;
+  display: inline-grid;
+  place-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.todo-checkbox:hover {
+  border-color: #c084fc;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+}
+.todo-checkbox:checked {
+  background-color: #9333ea;
+  border-color: #9333ea;
+}
+.todo-checkbox:checked::before {
+  content: "";
+  width: 8px;
+  height: 4px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+.todo-item.completed > span {
+  text-decoration: line-through;
+  opacity: 0.45;
+  filter: blur(0.2px);
+  transition: all 0.2s ease;
+}
+
+/* Callout Quote & Code Blocks */
+blockquote.editor-quote {
+  border-left: 3px solid #a855f7;
+  padding-left: 14px;
+  margin: 14px 0;
+  font-style: italic;
+  opacity: 0.9;
+  background: rgba(168, 85, 247, 0.05);
+  border-radius: 0 8px 8px 0;
+  padding: 8px 14px;
+}
+pre.editor-code {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-family: monospace;
+  font-size: 13px;
+  margin: 12px 0;
+}
+
+/* ==============================================================
+   MASTER CONTRAST & TYPOGRAPHY ENGINE (FORCE OVERRIDE INLINE BUGS)
+   ============================================================== */
+
+[data-theme="dark"] [contenteditable],
+[data-theme="dark"] [contenteditable] * {
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] [contenteditable] h1,
+[data-theme="dark"] [contenteditable] h2,
+[data-theme="dark"] [contenteditable] h3,
+[data-theme="dark"] [contenteditable] h1 *,
+[data-theme="dark"] [contenteditable] h2 *,
+[data-theme="dark"] [contenteditable] h3 * {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="light"] [contenteditable],
+[data-theme="light"] [contenteditable] * {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] [contenteditable] h1,
+[data-theme="light"] [contenteditable] h2,
+[data-theme="light"] [contenteditable] h3,
+[data-theme="light"] [contenteditable] h1 *,
+[data-theme="light"] [contenteditable] h2 *,
+[data-theme="light"] [contenteditable] h3 * {
+  color: #581c87 !important;
+  font-weight: 700 !important;
+}
+
+/* ==============================================================
+   PRECISION HIGHLIGHT ENGINE
+   ============================================================== */
+
+[data-theme="dark"] [contenteditable] mark,
+[data-theme="dark"] [contenteditable] mark *,
+[data-theme="dark"] [contenteditable] span[style*="background-color"]:not([style*="background-color: transparent"]):not([style*="background-color: rgba(0, 0, 0, 0)"]) {
+  background-color: rgba(168, 85, 247, 0.35) !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  padding: 1px 6px !important;
+  border: 1px solid rgba(168, 85, 247, 0.55) !important;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.3) !important;
+  display: inline !important;
+}
+
+[data-theme="light"] [contenteditable] mark,
+[data-theme="light"] [contenteditable] mark *,
+[data-theme="light"] [contenteditable] span[style*="background-color"]:not([style*="background-color: transparent"]):not([style*="background-color: rgba(0, 0, 0, 0)"]) {
+  background-color: #fef08a !important;
+  color: #0f172a !important;
+  border-radius: 4px !important;
+  padding: 1px 6px !important;
+  border: 1px solid #fde047 !important;
+  display: inline !important;
+}

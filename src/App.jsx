@@ -59,11 +59,16 @@ export default function App() {
     }
   ]);
 
-  const [activeNoteId, setActiveNoteId] = useState(notes[0]?.id || null);
+  // Fix: On mobile screens, do NOT open note by default (user sees note list first)
+  const [activeNoteId, setActiveNoteId] = useState(() => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      return null;
+    }
+    return notes[0]?.id || null;
+  });
 
   const activeNote = useMemo(() => notes.find((n) => n.id === activeNoteId && !n.isTrash) || null, [notes, activeNoteId]);
 
-  // Maintain custom dragged order while respecting pinned status
   const filteredNotes = useMemo(() => {
     const list = notes
       .filter((n) => !n.isTrash)
@@ -75,7 +80,6 @@ export default function App() {
     return [...pinned, ...unpinned];
   }, [notes, currentCategory, selectedTag]);
 
-  // Global Keyboard Shortcuts
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
@@ -83,13 +87,11 @@ export default function App() {
         setIsCommandPaletteOpen((prev) => !prev);
         return;
       }
-
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "f") {
         e.preventDefault();
         setIsZenMode((prev) => !prev);
         return;
       }
-
       if (e.key === "Escape") {
         setIsCommandPaletteOpen(false);
         setWorkspaceToDelete(null);
@@ -279,7 +281,7 @@ export default function App() {
       tag: "#general",
       pinned: false,
       isTrash: false,
-      createdAt: "Sep 17, 2026"
+      createdAt: "Sep 18, 2026"
     };
     setNotes((prev) => [newDoc, ...prev]);
     setActiveNoteId(newDoc.id);
@@ -324,7 +326,6 @@ export default function App() {
     addToast("Trash Emptied", "All deleted documents wiped", "error");
   }, [setNotes, addToast]);
 
-  // Precise ID-based Card Reordering Engine
   const handleReorderNotes = useCallback((draggedNoteId, targetNoteId) => {
     setNotes((prevNotes) => {
       const draggedIdx = prevNotes.findIndex((n) => n.id === draggedNoteId);
@@ -351,7 +352,7 @@ export default function App() {
   }, [deleteNote]);
 
   const handleDuplicateNote = useCallback((note) => {
-    const dup = { ...note, id: Date.now(), title: `${note.title} (Copy)`, pinned: false, isTrash: false, createdAt: "Sep 17, 2026" };
+    const dup = { ...note, id: Date.now(), title: `${note.title} (Copy)`, pinned: false, isTrash: false, createdAt: "Sep 18, 2026" };
     setNotes((prev) => [dup, ...prev]);
     setActiveNoteId(dup.id);
     addToast("Document Duplicated", `Cloned inside ${note.category}`);
@@ -421,7 +422,7 @@ export default function App() {
 
   return (
     <div 
-      className={`min-h-screen flex font-sans transition-colors duration-500 relative ${
+      className={`h-[100dvh] w-full flex font-sans transition-colors duration-500 relative overflow-hidden ${
         isDark ? "bg-[#090310] text-slate-100" : "bg-[#faf9fe] text-slate-900"
       }`} 
       data-theme={isDark ? "dark" : "light"}
@@ -458,7 +459,8 @@ export default function App() {
         />
       )}
 
-      <div className="flex-1 flex flex-col min-h-screen relative lg:z-30 overflow-y-auto">
+      {/* Main Viewport Container */}
+      <div className="flex-1 flex flex-col h-[100dvh] relative lg:z-30 overflow-hidden">
         {!isZenMode && (
           <Header 
             isDark={isDark}
@@ -471,7 +473,7 @@ export default function App() {
           />
         )}
 
-        <main className={`mx-auto w-full px-3.5 sm:px-6 md:px-6 lg:px-8 py-4 sm:py-6 flex-1 ${isZenMode ? "max-w-4xl" : "max-w-[1600px]"}`}>
+        <main className={`mx-auto w-full px-3 sm:px-6 md:px-6 lg:px-8 py-2 sm:py-4 flex-1 overflow-hidden ${isZenMode ? "max-w-4xl" : "max-w-[1600px]"}`}>
           {isTrashView ? (
             <TrashView 
               trashedNotes={trashedNotes}
@@ -481,9 +483,10 @@ export default function App() {
               isDark={isDark}
             />
           ) : (
-            <div className={`grid gap-4 md:gap-5 lg:gap-6 ${isZenMode ? "grid-cols-1" : "grid-cols-1 md:grid-cols-12"}`}>
+            <div className={`h-full grid gap-3 sm:gap-4 md:gap-5 ${isZenMode ? "grid-cols-1" : "grid-cols-1 md:grid-cols-12"}`}>
+              {/* NoteList: Mobile par tabhi show ho jab note select na ho */}
               {!isZenMode && (
-                <div className={`md:col-span-5 lg:col-span-4 ${activeNote ? "hidden md:block" : "block"}`}>
+                <div className={`h-full md:col-span-5 lg:col-span-4 ${activeNote ? "hidden md:block" : "block"}`}>
                   <NoteList 
                     currentCategory={currentCategory}
                     filteredNotes={filteredNotes}
@@ -501,7 +504,8 @@ export default function App() {
                 </div>
               )}
 
-              <div className={isZenMode ? "col-span-1" : `md:col-span-7 lg:col-span-8 ${activeNote ? "block" : "hidden md:block"}`}>
+              {/* Editor Canvas: Mobile par tabhi show ho jab note active ho */}
+              <div className={`h-full ${isZenMode ? "col-span-1" : `md:col-span-7 lg:col-span-8 ${activeNote ? "block" : "hidden md:block"}`}`}>
                 <EditorCanvas 
                   activeNote={activeNote}
                   editorRef={editorRef}

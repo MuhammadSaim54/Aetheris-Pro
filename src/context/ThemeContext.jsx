@@ -5,7 +5,7 @@ const ThemeContext = createContext();
 export function ThemeProvider({ children }) {
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem("aetheris_theme");
-    return saved !== null ? saved === "dark" : true;
+    return saved !== null ? saved === "dark" : false; // Default: Light
   });
 
   useEffect(() => {

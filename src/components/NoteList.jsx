@@ -50,7 +50,7 @@ function NoteList({
   };
 
   return (
-    <div className="h-[calc(100vh-100px)] flex flex-col justify-between">
+    <div className="h-[calc(100dvh-5.5rem)] max-h-[calc(100dvh-5.5rem)] flex flex-col justify-between">
       {/* Vault Header & Tag Filters */}
       <div className="pb-3 space-y-3 shrink-0">
         <div className="flex items-center justify-between">
@@ -98,9 +98,9 @@ function NoteList({
       </div>
 
       {/* Cards Stream */}
-      <div className="flex-1 overflow-y-auto pr-1 space-y-3">
+      <div className="flex-1 overflow-y-auto pr-1 space-y-2.5 sm:space-y-3">
         {filteredNotes.length === 0 ? (
-          <div className={`h-full min-h-[300px] flex flex-col items-center justify-center p-8 rounded-3xl border border-dashed text-center ${
+          <div className={`h-full min-h-[260px] flex flex-col items-center justify-center p-8 rounded-3xl border border-dashed text-center ${
             isDark ? "border-white/10 text-purple-300/40 bg-[#12071f]/20" : "border-slate-200 text-slate-400 bg-white/60"
           }`}>
             <Sparkles className="w-6 h-6 mx-auto mb-2 opacity-40 text-purple-400" />
@@ -122,26 +122,26 @@ function NoteList({
                 onDrop={(e) => handleDrop(e, note.id)}
                 onDragEnd={handleDragEnd}
                 onClick={() => setActiveNoteId(note.id)}
-                className={`p-4 sm:p-5 rounded-2xl sm:rounded-3xl transition-all duration-150 cursor-pointer flex flex-col justify-between group select-none relative border active:scale-[0.99] ${
+                className={`p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl transition-all duration-150 cursor-pointer flex flex-col justify-between group select-none relative border active:scale-[0.99] ${
                   isDragging 
                     ? "opacity-30 scale-95 border-dashed border-purple-500 bg-purple-500/5" 
                     : isTarget 
                     ? "border-t-4 border-t-purple-500 scale-[1.02] shadow-xl bg-purple-500/10" 
                     : isSelected 
                     ? (isDark 
-                        ? "bg-gradient-to-b from-[#1c0c33] to-[#140826] border-purple-500/40 shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_20px_rgba(168,85,247,0.15)] ring-1 ring-purple-500/20" 
-                        : "bg-white border-purple-300 shadow-md shadow-purple-500/5 ring-1 ring-purple-400/20")
+                        ? "bg-gradient-to-b from-[#1c0c33] to-[#140826] border-purple-500/40 shadow-lg ring-1 ring-purple-500/20" 
+                        : "bg-white border-purple-300 shadow-md ring-1 ring-purple-400/20")
                     : (isDark 
                         ? "bg-[#120620]/70 border-white/[0.05] hover:border-purple-500/30 hover:bg-[#170929]" 
                         : "bg-white border-slate-200/80 hover:border-purple-200 hover:shadow-xs")
                 }`}
               >
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-between gap-2 mb-1.5 sm:mb-2">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
                       <div 
-                        className="opacity-40 group-hover:opacity-100 hover:text-purple-400 cursor-grab active:cursor-grabbing p-1 rounded-md transition-colors"
-                        title="Drag to reorder or move to workspace"
+                        className="opacity-40 group-hover:opacity-100 hover:text-purple-400 cursor-grab active:cursor-grabbing p-0.5 rounded transition-colors"
+                        title="Drag to reorder"
                       >
                         <GripVertical className="w-3.5 h-3.5" />
                       </div>
@@ -174,7 +174,7 @@ function NoteList({
                   </p>
                 </div>
 
-                <div className={`flex items-center justify-between mt-3 pt-2.5 border-t ${
+                <div className={`flex items-center justify-between mt-2.5 pt-2 border-t ${
                   isDark ? "border-white/[0.05]" : "border-slate-100"
                 }`}>
                   <span className="text-[11px] font-mono text-rose-400/90 font-medium">{note.tag}</span>
